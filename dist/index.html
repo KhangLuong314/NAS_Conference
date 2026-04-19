@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link rel="stylesheet" href="css/theme/black-contrast.scss" />
+		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+
+		<style>
+			.accent-gold { color: #FFD700; font-weight: bold; }
+			.accent-green { color: #4CAF50; font-weight: bold; }
+			.accent-blue { color: #4FC3F7; font-weight: bold; }
+			.sub-text { font-size: 0.85em; color: #aaaaaa; }
+			.caption { font-size: 0.4em; color: #888888; margin-top: 0.5rem; line-height: 1.2; }
+			
+			.placeholder-box {
+				border: 2px dashed #666;
+				background: rgba(255,255,255,0.05);
+				padding: 30px;
+				text-align: center;
+				color: #888;
+				border-radius: 10px;
+				margin: 1rem 0;
+				transition: all 0.3s ease;
+			}
+			.placeholder-box:hover {
+				border-color: #aaaaaa;
+				background: rgba(255,255,255,0.1);
+			}
+
+			.highlight-card {
+				background: rgba(255,255,255,0.05);
+				border: 1px solid #444;
+				border-radius: 10px;
+				padding: 1.5rem;
+				box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+			}
+
+			/* Flow Arrow Animation */
+			@keyframes pulseArrow {
+				0% { transform: translateY(0); opacity: 0.7; }
+				50% { transform: translateY(5px); opacity: 1; }
+				100% { transform: translateY(0); opacity: 0.7; }
+			}
+			.animated-arrow {
+				font-size: 1.5em;
+				color: #FFD700;
+				animation: pulseArrow 1.5s infinite;
+			}
+
+			/* Cascade Fade for Acknowledgments */
+			@keyframes cascadeFade {
+				0% { opacity: 0; transform: translateY(20px); }
+				100% { opacity: 1; transform: translateY(0); }
+			}
+			.auto-fade {
+				opacity: 0;
+				animation: cascadeFade 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+			}
+			.team-member {
+				width: 200px; 
+				text-align: center;
+			}
+			.team-member img {
+				width: 160px; height: 200px; 
+				border-radius: 8px; object-fit: cover; 
+				margin: 0 auto; 
+				border: 2px solid #ffffff; 
+				box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+				transition: transform 0.3s ease;
+			}
+			.team-member:hover img {
+				transform: scale(1.05);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- // Title slide -->
+				<section data-transition="zoom">
+					<h2 style="font-size: 1.5em; margin-bottom: 0.2em; text-transform: none; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+						CATCHING ELECTRONS IN THE ACT: <br> <span class="accent-blue">SPEEDING UP SIMULATIONS FOR ULTRAFAST PHYSICS</span>
+					</h2>
+					<h4 style="font-size: 0.9em; font-weight: normal; color: #aaaaaa; margin-bottom: 1.5em; text-transform: none;">
+						A Computationally Efficient Alternative to <em>Ab Initio</em> Methods
+					</h4>
+
+					<p style="font-size: 0.8em; margin-bottom: 0.2em;">
+						<strong>Khang Luong</strong> and Martin Centurion
+					</p>
+					<p style="font-size: 0.65em; color: #cccccc; margin-bottom: 2em;">
+						Department of Physics and Astronomy &bull; University of Nebraska-Lincoln
+					</p>
+
+					<div style="display: flex; justify-content: center; align-items: center; gap: 3rem; margin-top: 2rem;">
+						
+						<img 
+							src="assets/nebraska_logo.png" 
+							alt="University of Nebraska-Lincoln Logo" 
+							style="height: 120px; background: transparent; border: none; box-shadow: none; margin: 0;"
+						/>
+
+						<img 
+							src="assets/DOE_logo.png" 
+							alt="Department of Energy Logo" 
+							style="height: 120px; background: transparent; border: none; box-shadow: none; margin: 0;"
+						/>
+						
+					</div>
+				</section>
+				<!-- // Introduction -->
+				<section data-transition="fade">
+					<section>
+						<h2>Introduction</h2>
+					</section>
+
+					<section data-transition="slide">
+						<h3>Ultrafast Molecular Dynamics</h3>
+						
+						<div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem;">
+							<div style="flex: 1; text-align: left;" class="sub-text">
+								<p>Observing fundamental processes involves energy transfers at the atomic level, occurring on the <strong style="color:#fff;">femtosecond (10<sup>-15</sup> s)</strong> timescale:</p>
+								<ul>
+									<li class="fragment fade-up" style="margin-bottom: 0.8rem;"><strong>Photosynthesis:</strong> Bond formation and breaking.</li>
+									<li class="fragment fade-up" style="margin-bottom: 0.8rem;"><strong>Solar conversion:</strong> Charge separation and transfer.</li>
+									<li class="fragment fade-up"><strong>DNA photoprotection:</strong> Ultrafast relaxation in nucleobases.</li>
+								</ul>
+							</div>
+
+							<div style="flex: 1;" class="fragment fade-in">
+								<figure style="margin: 0;">
+									<img src="assets/dynamics.gif" alt="Molecular Dynamics Animation" style="width: 100%; max-width: 500px; border-radius: 8px;" />
+									<figcaption class="caption">
+										Source: T. M. Porter et al., <em>Chem. Sci.</em>, 2018. DOI: 10.1039/c8sc03258k
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</section>
+
+					<section data-transition="slide">
+						<h3>Making "Molecular Movies"</h3>
+						
+						<div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem;">
+							<div style="flex: 1; text-align: left;" class="sub-text">
+								<ul>
+									<li class="fragment fade-up" style="margin-bottom: 1.5rem;">Understanding these mechanisms requires <strong style="color:#fff;">direct observation</strong> of atomic motions and electronic rearrangements.</li>
+									<li class="fragment fade-up">Ultrafast spectroscopy provides indirect signatures, but direct structural tracking is the ultimate goal.</li>
+								</ul>
+							</div>
+
+							<div style="flex: 1;" class="fragment fade-left">
+								<figure style="margin: 0;">
+									<video src="assets/molecular_movie.mp4" autoplay muted playsinline loop style="width: 100%; max-width: 500px; border-radius: 8px;"></video>
+									<figcaption class="caption">
+										Source: Nunes, F., et al. (2024). Photo-induced structural dynamics of o-nitrophenol by ultrafast electron diffraction. <em>PCCP</em>, 26(26).
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</section>
+				</section>
+				<!-- // Diffraction Experiment -->
+				<section>
+					<section
+						data-background-video="assets/GUEDScene3D.mp4"
+						data-background-video-muted>
+					</section>
+					<section data-transition="slide">
+						<div style="position: absolute; top: -20px; right: -20px; width: 180px; text-align: center; z-index: 10; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px;">
+							<img src="assets/I2.png" alt="I2 Molecule" style="width: 100%; border: none; box-shadow: none; margin: 0;">
+							<div style="font-size: 0.5em; color: #aaaaaa; margin-top: 5px;">$\text{Iodine } I_2$</div>
+						</div>
+
+						<h3 style="margin-bottom: 0.5em; text-align: left; padding-right: 50px;">GUED Diffraction Pattern</h3>
+
+						<div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%; gap: 0rem;">
+							
+							<div style="flex: 1; text-align: center;">
+								<img src="assets/2D_Iat.png" alt="2D Atomic" style="width: 100%; border: none; box-shadow: none; margin: 0;">
+								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">Atomic Intensity ($I_{at}$)</div>
+							</div>
+
+							<div style="flex: 1; text-align: center;">
+								<img src="assets/2D_Imol.png" alt="2D Molecular" style="width: 100%; border: none; box-shadow: none; margin: 0;">
+								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">Molecular Intensity ($I_{mol}$)</div>
+							</div>
+
+							<div style="flex: 1; text-align: center;">
+								<img src="assets/2D_Itot.png" alt="2D Total" style="width: 100%; border: none; box-shadow: none; margin: 0;">
+								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">Total Intensity ($I_{tot}$)</div>
+							</div>
+
+							<div style="flex: 1; text-align: center;">
+								<img src="assets/2D_sM.png" alt="2D sM" style="width: 100%; border: none; box-shadow: none; margin: 0;">
+								<div style="font-size: 0.4em; color: #4CAF50; font-weight: bold; margin-top: 0.2rem;">Modified Molecular Intensity ($sM$)</div>
+							</div>
+
+						</div>
+
+						<div class="fragment" style="display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0;">
+							<span style="font-size: 0.5em; color: #FFD700; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
+								Azimuthal Averaging
+							</span>
+							<div style="display: flex; justify-content: space-around; width: 70%; margin-top: 5px;">
+								<div class="animated-arrow">&darr;</div>
+								<div class="animated-arrow">&darr;</div>
+							</div>
+						</div>
+
+						<div class="fragment" style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; gap: 1rem;">
+							
+							<div style="flex: 4; text-align: center; border-top: 1px solid #333; padding-top: 0.5rem;">
+								<img src="assets/1D_ImolandIat.png" alt="1D Profiles" style="width: 45%; border: none; box-shadow: none; margin: 0;">
+								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">1D Radial Profiles</div>
+							</div>
+
+							<div style="flex: 4; text-align: center; border-top: 1px dashed #4CAF50; padding-top: 0.5rem;">
+								<img src="assets/1D_sM.png" alt="1D sM" style="width: 45%; border: none; box-shadow: none; margin: 0;">
+								<div style="font-size: 0.4em; color: #4CAF50; font-weight: bold; margin-top: 0.2rem;">1D Modified Molecular Intensity</div>
+							</div>
+
+						</div>
+
+						<div class="fragment" style="text-align: right; font-size: 0.35em; color: #666666; margin-top: 1rem; border-top: 1px solid #444; padding-top: 0.5rem;">
+							Data analysis framework and visualization code developed by <strong>Cuong Le, Centurion Group</strong>
+						</div>
+
+					</section>
+				</section>
+				<!-- // Analysis of Diffraction Pattern -->
+				<section>
+					<section data-transition="fade">
+						<h2>Analysis of Diffraction Pattern</h2>
+					</section>
+					<section data-transition="slide">
+						<h3 style="margin-bottom: 0.5em;">The Independent Atom Model (IAM)</h3>
+						
+						<div style="text-align: left; margin: 0 auto 1.5rem auto; max-width: 1200px;" class="sub-text">
+							<ul>
+								<li class="fragment fade-in-then-semi-out" style="margin-bottom: 0.8rem;">
+									Simplest and most efficient approach to model molecular diffraction patterns.
+								</li>
+								<li class="fragment fade-in-then-semi-out" style="margin-bottom: 0.8rem;">
+									Assumes total scattering is a sum of <strong style="color: #fff;">independent atomic contributions</strong>.
+								</li>
+								<li class="fragment fade-in-then-semi-out" style="margin-bottom: 0.8rem;">
+									Allows for tabulated Atomic Form Factor (AFF) for neutral atoms.
+								</li>
+							</ul>
+						</div>
+
+						<div style="display: flex; justify-content: center; align-items: flex-start; gap: 2rem; width: 100%;">
+							<figure class="fragment fade-up highlight-card" style="flex: 1; text-align: center; margin: 0;">
+								<img src="assets/1D_ImolandIat.png" alt="IAM" style="width: 100%; max-width: 500px;">
+								<figcaption class="caption">Atomic and Molecular Intensity from the IAM</figcaption>
+							</figure>
+
+							<figure class="fragment fade-up highlight-card" style="flex: 1; text-align: center; margin: 0;">
+								<img src="assets/1D_sM.png" alt="sM" style="width: 100%; max-width: 500px;">
+								<figcaption class="caption">
+									Modified Molecular Intensity \[sM(s)=s\frac{I_{\text{mol}}(s)}{I_{\text{at}}(s)}\]<br>
+									Total Intensity \[I_{\text{tot}}(s)=I_{\text{at}}(s)+I_{\text{mol}}(s)\]
+								</figcaption>
+							</figure>
+						</div>
+					</section>
+					<section data-transition="slide">
+						<h3>Retrieval of Structure Information</h3>
+						<div class="sub-text text-left">
+							<ul>
+								<li class="fragment fade-up" style="margin-bottom: 0.8rem;">
+									Ground state structure is known &rarr; Use IAM to predict diffraction pattern for a given geometry.
+								</li>
+								<li class="fragment fade-up" style="margin-bottom: 0.8rem;">
+									A Fourier sine transform of the modified molecular intensity $sM(s)$ yields the <strong>Pair Distribution Function (PDF)</strong>.
+								</li>
+								<li class="fragment fade-up" style="margin-bottom: 0.8rem;">
+									PDF encodes interatomic distances, enabling 3D structural reconstruction.
+								</li>
+							</ul>
+						</div>
+						<div style="display: flex; justify-content: center; align-items: center; gap: 2rem; width: 100%; margin-top: 1rem;">
+							<figure class="fragment fade-right" style="flex: 1; text-align: center; margin: 0;">
+								<img src="assets/I2_sM.png" alt="sM" style="width: 100%; max-width: 550px;">
+								<figcaption class="caption">Oscillations in $sM(s)$ encode interatomic distance.</figcaption>
+							</figure>
+
+							<div class="fragment animated-arrow" style="flex: 0.1;">&rarr;</div>
+
+							<figure class="fragment fade-left" style="flex: 1; text-align: center; margin: 0;">
+								<img src="assets/I2_PDF.png" alt="PDF" style="width: 100%; max-width: 550px;">
+								<figcaption class="caption">PDF obtained via Fourier sine transform of $sM(s)$.</figcaption>
+							</figure>
+						</div>
+					</section>
+					<section data-transition="zoom">
+						<h3>Time-Resolved Dynamics</h3>
+						<div class="sub-text text-left">
+							<ul>
+								<li class="fragment" style="margin-bottom: 0.8rem;">
+									A time resolved diffraction signal can also be perform to analyze the structural changes during a photochemical reaction, such as bond breaking and formation.
+								</li>
+								<li class="fragment" style="margin-bottom: 0.8rem;">
+									From there, we can track the structural evolution of the molecule in real time, creating a "molecular movie" of the reaction dynamics.
+								</li>
+							</ul>
+						</div>
+						<div style="display: flex; justify-content: center; align-items: flex-start; gap: 2rem; width: 100%; margin-top: 1rem;">
+							<figure class="fragment fade-up" style="flex: 1; margin: 0;">
+								<img src="assets/TimeResolved.png" alt="Time-resolved sM" style="width: 100%; max-width: 600px; max-height: 450px;">
+								<figcaption class="caption">Time-resolved $sM(s,t)$ during reaction.</figcaption>
+							</figure>
+
+							<figure class="fragment fade-up" style="flex: 1; margin: 0;">
+								<img src="assets/TimeResolvedPDF.png" alt="Time-resolved PDF" style="width: 100%; max-width: 600px; max-height: 450px;">
+								<figcaption class="caption">Time-resolved PDF mapping interatomic evolution.</figcaption>
+							</figure>
+						</div>
+						<p style="font-size: 0.4em; color: #888; margin-top: 2rem;">*Molecular dynamics simulated using Restricted Kohn–Sham over 300 fs.</p>
+					</section>
+				</section>
+				<!-- // The Computational Bottleneck -->
+				<section>
+					<section data-auto-animate>
+						<h2 style="color: #FF5252;">The Computational Bottleneck</h2>
+						<h4 class="sub-text">Where the Standard Fails</h4>
+					</section>
+					
+					<section data-auto-animate>
+						<h2 style="margin-bottom: 0.5em; color: #FF5252;">The Computational Bottleneck</h2>
+						
+						<div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem;">
+							<div style="flex: 1; text-align: left;" class="sub-text">
+								
+								<div class="fragment fade-up highlight-card" style="margin-bottom: 1.5rem; border-left: 4px solid #FFD700;">
+									<p class="accent-gold" style="margin-bottom: 0.5rem;">The IAM Blind Spot</p>
+									<ul>
+										<li style="margin-bottom: 0.5rem;">Standard IAM assumes atoms are neutral and non-interacting.</li>
+										<li>Fundamentally fails to capture electronic reorganization and charge localization during ionization.</li>
+									</ul>
+								</div>
+								
+								<div class="fragment fade-up highlight-card" style="border-left: 4px solid #FFD700;">
+									<p class="accent-gold" style="margin-bottom: 0.5rem;">Quantum Mechanical Reality</p>
+									<ul>
+										<li style="margin-bottom: 0.5rem;">Rigorous <em>ab initio</em> (first-principles) treatments can accurately resolve ionization and its impact on diffraction patterns.</li>
+										<li><strong>However:</strong></li>
+									</ul>
+								</div>
+							</div>
+							
+							<div style="flex: 1;" class="fragment fade-in">
+								<figure style="margin: 0;">
+									<img src="assets/Thermally_Agitated_Molecule.gif" alt="Vibrating Molecule" style="width: 100%; max-width: 500px; border-radius: 50%; box-shadow: 0 0 30px rgba(255, 82, 82, 0.3);" />
+									<figcaption class="caption">
+										Source: User:Greg_L, CC BY-SA 3.0, via Wikimedia Commons
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</section>
+				</section>
+				<!-- // Our Solution: The IAM+ -->
+				<section>
+					<section data-auto-animate>
+						<h2 class="accent-blue">Our Solution: The IAM+</h2>
+						<h4 class="sub-text">A Computationally Efficient Alternative</h4>
+					</section>
+					
+					<section data-auto-animate>
+						<h2 class="accent-blue" style="margin-bottom: 0.5em;">Our Solution: The IAM+</h2>
+						
+						<div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem;">
+							<div style="flex: 1.2; text-align: left;" class="sub-text">
+								
+								<div class="fragment fade-up highlight-card" style="margin-bottom: 1.5rem; border-left: 4px solid #4CAF50;">
+									<p class="accent-green" style="margin-bottom: 0.5rem;">The "Software Update"</p>
+									<ul>
+										<li style="margin-bottom: 0.8rem;">Instead of running a highly expensive quantum simulation from scratch, we upgraded the existing independent atom model.</li>
+										<li>We factor in a <strong>bare nucleus</strong> to explicitly account for the specific electron that was removed by the pump.</li>
+									</ul>
+								</div>
+								
+								<div class="fragment fade-up highlight-card" style="border-left: 4px solid #4CAF50;">
+									<p class="accent-green" style="margin-bottom: 0.5rem;">The Impact</p>
+									<ul>
+										<li style="margin-bottom: 0.8rem;">Successfully captures the signature of ionization and its impact on diffraction patterns.</li>
+										<li>Maintains the <strong>computational speed</strong> of the original model, completely bypassing the bottleneck.</li>
+									</ul>
+								</div>
+							</div>
+							
+							<div class="fragment fade-left" style="flex: 0.8; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border: 1px solid #444; border-radius: 10px; padding: 1.5rem;">
+								<img src="assets/paper.png" alt="Conceptual Diagram" style="width: 90%; border-radius: 6px; margin-bottom: 1rem;" />
+								<div class="caption text-center">
+									<strong>Similar Method for Electron Diffraction in Crystallography</strong>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section> 
+				<!-- // Results -->
+				<section>
+					<section data-transition="slide">
+						<h2>Results</h2>
+						<h4 class="sub-text">Benchmarking against <em>Ab Initio</em></h4>
+					</section>
+
+					<section data-transition="slide">
+						<h3>Validation in Momentum Space</h3>
+						<p class="accent-blue">Test Case: HOMO-ionized Bromoacetylene ($\text{BrC}_2\text{H}$)</p>
+						<p class="sub-text" style="font-style: italic;">
+							IAM+ (blue) successfully captures the ionization signature, while standard IAM (red) exhibits large errors in low momentum transfer.
+						</p>
+						<figure style="margin-top: 1rem;">
+							<img src="assets/result.png" alt="Results" style="max-height: 50vh; width: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
+							<figcaption class="caption"><em>Ab Initio</em> calculation by Andres Moreno Carrascosa, Kirrander Group</figcaption>
+						</figure>
+					</section>
+					<section data-transition="zoom">
+						<h3>Computational Speed Comparison</h3>
+						
+						<div style="display: flex; justify-content: center; gap: 3rem; margin-top: 3rem;">
+							<div class="highlight-card fragment fade-up" style="flex: 1; text-align: center; border-top: 4px solid #FF5252;">
+								<h4 style="color: #FF5252;"><em>Ab Initio</em></h4>
+								<div style="font-size: 2.5em; font-weight: bold; margin: 1rem 0;">1m 30s</div>
+								<div class="sub-text">Minimum time<br>Requires 9GB RAM</div>
+							</div>
+
+							<div class="fragment fade-in" style="font-size: 3em; color: #aaa; display: flex; align-items: center;">VS</div>
+
+							<div class="highlight-card fragment fade-up" style="flex: 1; text-align: center; border-top: 4px solid #4CAF50; transform: scale(1.05);">
+								<h4 style="color: #4CAF50;">IAM+</h4>
+								<div style="font-size: 2.5em; font-weight: bold; margin: 1rem 0;">2.05s</div>
+								<div class="sub-text">Total time<br>Requires 1GB RAM</div>
+							</div>
+						</div>
+					</section>
+					<section data-transition="slide">
+						<h3>Ongoing: Real-Space Charge Mapping</h3>
+						<p class="sub-text" style="font-style: italic; margin-bottom: 1em;">
+							<em>Topological differences between core (Br 1s) and valence (HOMO) holes.</em>
+						</p>
+						
+						<div class="sub-text text-left" style="margin-bottom: 20px;">
+							<ul>
+								<li>We expect the IAM+ can accurately capture ionized signatures from different charge sites in the molecule. Equivalent to the rigorous <em>ab initio</em> approach but with significantly reduced computational cost.</li>
+								<li>To validate our approach, we are currently comparing the difference between a core and a valence hole on Bromoacetylene (<em>BrC</em><sub>2</sub><em>H</em>).</li>
+							</ul>
+						</div>
+
+						<div class="fragment fade-up" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: end; justify-items: center; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px;">
+							
+							<figure style="margin: 0; text-align: center;">
+								<img src="assets/Neutral.png" alt="Neutral" style="max-height: 200px;">
+								<figcaption>Neutral</figcaption>
+							</figure>
+							<figure style="margin: 0; text-align: center;">
+								<img src="assets/HOMO_Ionized.png" alt="HOMO Ionized" style="max-height: 200px;">
+								<figcaption>HOMO Ionized</figcaption>
+							</figure>
+							<figure style="margin: 0; text-align: center; position: relative;">
+								<img src="assets/HOMO_difference.png" alt="HOMO Difference" style="max-height: 200px;">
+								<figcaption>HOMO Difference</figcaption>
+							</figure>
+
+							<figure style="margin: 0; text-align: center;">
+								<img src="assets/Neutral.png" alt="Neutral" style="max-height: 200px;">
+								<figcaption>Neutral</figcaption>
+							</figure>
+							<figure style="margin: 0; text-align: center;">
+								<img src="assets/1s_ionized.png" alt="1s Ionized" style="max-height: 200px;">
+								<figcaption>1s Ionized</figcaption>
+							</figure>
+							<figure style="margin: 0; text-align: center; position: relative;">
+								<img src="assets/1s_difference.png" alt="1s Difference" style="max-height: 200px;">
+								<figcaption>1s Difference</figcaption>
+							</figure>
+						</div>
+						<p style="font-size: 0.4em; color: #888; margin-top: 10px;">*Electron density calculated with Unrestricted Hartree-Fock (UHF), basis set <em>def2-svpd</em>.</p>
+					</section>
+				</section>
+				<!-- // Conclusion & Next Steps -->
+				<section>
+					<section data-transition="zoom">
+						<h2>Conclusion & Next Steps</h2>
+					</section>
+					<section>
+						<div class="highlight-card" style="text-align: left; margin-bottom: 2rem;">
+							<h3 class="accent-blue" style="margin-bottom: 1rem;">Significance</h3>
+							<ul class="sub-text">
+								<li class="fragment fade-up">The IAM+ successfully captures the diffraction signatures of ionized molecules.</li>
+								<li class="fragment fade-up">Achieves quantum-level accuracy at a <strong>fraction</strong> of the computational cost of full quantum mechanical treatments.</li>
+							</ul>
+						</div>
+						
+						<div class="highlight-card" style="text-align: left;">
+							<h3 class="accent-green" style="margin-bottom: 1rem;">Future Outlook</h3>
+							<ul class="sub-text">
+								<li class="fragment fade-up">Correlate <em>ab initio</em> density maps with IAM+ real-space simulations.</li>
+								<li class="fragment fade-up">Establish target molecule workflows to process experimental GUED data faster.</li>
+							</ul>
+						</div>
+					</section>
+				</section>
+				<!-- // Acknowledgments -->
+				<section>
+					<section data-transition="fade">
+						<h2>Acknowledgments</h2>
+					</section>
+
+					<section id="team-slide">
+						<style>
+							@keyframes cascadeFade {
+								0% { opacity: 0; transform: translateY(15px); }
+								100% { opacity: 1; transform: translateY(0); }
+							}
+							
+							/* Keep elements hidden by default */
+							#team-slide .auto-fade {
+								opacity: 0; 
+							}
+
+							/* ONLY run when the specific #team-slide gets the .present class */
+							#team-slide.present .auto-fade {
+								animation: cascadeFade 0.5s ease-out forwards;
+							}
+						</style>
+
+						<h3 style="margin-bottom: 0.5em;">Centurion Research Group</h3>
+						
+						<div style="display: flex; flex-wrap: nowrap; justify-content: center; align-items: flex-start; gap: 1rem; width: 100%; margin: 0 auto 1.5rem auto;">
+							
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 0.2s;">
+								<img src="assets/Martin.jpg" alt="Martin" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Dr. Martin Centurion</strong><br>
+									<span style="color: #888888;">Principal Investigator</span>
+								</p>
+							</div>
+
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 0.4s;">
+								<img src="assets/Yanwei.jpg" alt="Yanwei" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Dr. Yanwei Xiong</strong><br>
+									<span style="color: #888888;">Postdoctoral Scholar</span>
+								</p>
+							</div>
+
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 0.6s;">
+								<img src="assets/Lauren.jpg" alt="Lauren" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Dr. Lauren Heald</strong><br>
+									<span style="color: #888888;">Postdoctoral Scholar</span>
+								</p>
+							</div>
+
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 0.8s;">
+								<img src="assets/Haoran.jpg" alt="Haoran" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Dr. Haoran Zhao</strong><br>
+									<span style="color: #888888;">Graduate Student</span>
+								</p>
+							</div>
+
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 1.0s;">
+								<img src="assets/Jackson.jpg" alt="Jackson" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Jackson Lederer</strong><br>
+									<span style="color: #888888;">Graduate Student</span>
+								</p>
+							</div>
+
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 1.2s;">
+								<img src="assets/Cuong.jpg" alt="Cuong" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Cuong Le</strong><br>
+									<span style="color: #888888;">Graduate Student</span>
+								</p>
+							</div>
+
+							<div class="auto-fade" style="width: 200px; text-align: center; animation-delay: 1.4s;">
+								<img src="assets/Nikhil.jpeg" alt="Nikhil" style="width: 160px; height: 200px; border-radius: 6px; object-fit: cover; margin: 0 auto; border: 2px solid #ffffff; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+								<p style="font-size: 0.4em; line-height: 1.2; margin-top: 0.5rem; color: #dddddd;">
+									<strong>Nikhil Pachisia</strong><br>
+									<span style="color: #888888;">Graduate Student</span>
+								</p>
+							</div>
+							
+						</div>
+
+						<div class="auto-fade" style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-top: 1px solid #555555; padding-top: 1rem; animation-delay: 1.6s;">
+							
+							<div style="flex: 1; text-align: left;">
+								<h4 style="font-size: 0.6em; margin-bottom: 0.3em;">Collaborators</h4>
+								<p style="font-size: 0.45em; color: #aaaaaa; margin: 0; line-height: 1.4;">
+									<strong>Kirrander Theory Group</strong>, University of Oxford
+								</p>
+								<p style="font-size: 0.45em; color: #aaaaaa; margin: 0; line-height: 1.4;">
+									<strong>SLAC MeV UED Team</strong>, SLAC National Accelerator Laboratory
+								</p>
+								<p style="font-size: 0.45em; color: #aaaaaa; margin: 0; line-height: 1.4;">
+									<strong>Stanford Pulse Institute</strong>, Stanford University
+								</p>
+							</div>
+
+							<div style="flex: 1; display: flex; justify-content: center; gap: 2rem; align-items: center;">
+								<img src="assets/nebraska_logo.png" alt="UNL Logo" style="height: 130px; background: transparent; border: none; box-shadow: none; margin: 0;">
+								<img src="assets/DOE_logo.png" alt="DOE Logo" style="height: 130px; background: transparent; border: none; box-shadow: none; margin: 0;">
+							</div>
+
+							<div style="flex: 1; text-align: right;">
+								<h4 style="font-size: 0.6em; margin-bottom: 0.3em;">Funding</h4>
+								<p style="font-size: 0.45em; color: #aaaaaa; margin: 0; line-height: 1.4;">
+									This work is supported by the University of Nebraska-Lincoln Undergraduate Creative Activities and Research Experience (UCARE) program (application #56031) and by the US Department of Energy, Office of Science, Basic Sciences under award no. DE-SC0014170.
+								</p>
+							</div>
+
+						</div>
+
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/notes.js"></script>
+		<script src="dist/plugin/markdown.js"></script>
+		<script src="dist/plugin/highlight.js"></script>
+		<script src="dist/plugin/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				width: 1920,
+        		height: 1080,
+				margin: 0.05,
+				minScale: 0.2,
+        		maxScale: 2.0,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.MathJax2],
+				mathjax3: {
+					mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+				}
+			});
+		</script>
+	</body>
+</html>
