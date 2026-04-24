@@ -175,67 +175,6 @@
 						data-background-video="assets/GUEDScene3D.mp4"
 						data-background-video-muted>
 					</section>
-					<section data-transition="slide">
-						<div style="position: absolute; top: -20px; right: -20px; width: 180px; text-align: center; z-index: 10; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px;">
-							<img src="assets/I2.png" alt="I2 Molecule" style="width: 100%; border: none; box-shadow: none; margin: 0;">
-							<div style="font-size: 0.5em; color: #aaaaaa; margin-top: 5px;">$\text{Iodine } I_2$</div>
-						</div>
-
-						<h3 style="margin-bottom: 0.5em; text-align: left; padding-right: 50px;">GUED Diffraction Pattern</h3>
-
-						<div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%; gap: 0rem;">
-							
-							<div style="flex: 1; text-align: center;">
-								<img src="assets/2D_Iat.png" alt="2D Atomic" style="width: 100%; border: none; box-shadow: none; margin: 0;">
-								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">Atomic Intensity ($I_{at}$)</div>
-							</div>
-
-							<div style="flex: 1; text-align: center;">
-								<img src="assets/2D_Imol.png" alt="2D Molecular" style="width: 100%; border: none; box-shadow: none; margin: 0;">
-								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">Molecular Intensity ($I_{mol}$)</div>
-							</div>
-
-							<div style="flex: 1; text-align: center;">
-								<img src="assets/2D_Itot.png" alt="2D Total" style="width: 100%; border: none; box-shadow: none; margin: 0;">
-								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">Total Intensity ($I_{tot}$)</div>
-							</div>
-
-							<div style="flex: 1; text-align: center;">
-								<img src="assets/2D_sM.png" alt="2D sM" style="width: 100%; border: none; box-shadow: none; margin: 0;">
-								<div style="font-size: 0.4em; color: #4CAF50; font-weight: bold; margin-top: 0.2rem;">Modified Molecular Intensity ($sM$)</div>
-							</div>
-
-						</div>
-
-						<div class="fragment" style="display: flex; flex-direction: column; align-items: center; margin: 0.5rem 0;">
-							<span style="font-size: 0.5em; color: #FFD700; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
-								Azimuthal Averaging
-							</span>
-							<div style="display: flex; justify-content: space-around; width: 70%; margin-top: 5px;">
-								<div class="animated-arrow">&darr;</div>
-								<div class="animated-arrow">&darr;</div>
-							</div>
-						</div>
-
-						<div class="fragment" style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; gap: 1rem;">
-							
-							<div style="flex: 4; text-align: center; border-top: 1px solid #333; padding-top: 0.5rem;">
-								<img src="assets/1D_ImolandIat.png" alt="1D Profiles" style="width: 45%; border: none; box-shadow: none; margin: 0;">
-								<div style="font-size: 0.4em; color: #aaaaaa; margin-top: 0.2rem;">1D Radial Profiles</div>
-							</div>
-
-							<div style="flex: 4; text-align: center; border-top: 1px dashed #4CAF50; padding-top: 0.5rem;">
-								<img src="assets/1D_sM.png" alt="1D sM" style="width: 45%; border: none; box-shadow: none; margin: 0;">
-								<div style="font-size: 0.4em; color: #4CAF50; font-weight: bold; margin-top: 0.2rem;">1D Modified Molecular Intensity</div>
-							</div>
-
-						</div>
-
-						<div class="fragment" style="text-align: right; font-size: 0.35em; color: #666666; margin-top: 1rem; border-top: 1px solid #444; padding-top: 0.5rem;">
-							Data analysis framework and visualization code developed by <strong>Cuong Le, Centurion Group</strong>
-						</div>
-
-					</section>
 				</section>
 				<!-- // Analysis of Diffraction Pattern -->
 				<section>
@@ -423,7 +362,7 @@
 							IAM+ (blue) successfully captures the ionization signature, while standard IAM (red) exhibits large errors in low momentum transfer.
 						</p>
 						<figure style="margin-top: 1rem;">
-							<img src="assets/result.png" alt="Results" style="max-height: 50vh; width: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
+							<img src="assets/result.png" alt="Results" style="max-height: 75vh; width: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
 							<figcaption class="caption"><em>Ab Initio</em> calculation by Andres Moreno Carrascosa, Kirrander Group</figcaption>
 						</figure>
 					</section>
@@ -441,7 +380,7 @@
 
 							<div class="highlight-card fragment fade-up" style="flex: 1; text-align: center; border-top: 4px solid #4CAF50; transform: scale(1.05);">
 								<h4 style="color: #4CAF50;">IAM+</h4>
-								<div style="font-size: 2.5em; font-weight: bold; margin: 1rem 0;">2.05s</div>
+								<div style="font-size: 2.5em; font-weight: bold; margin: 1rem 0;">1.025s</div>
 								<div class="sub-text">Total time<br>Requires 1GB RAM</div>
 							</div>
 						</div>
@@ -459,31 +398,15 @@
 							</ul>
 						</div>
 
-						<div class="fragment fade-up" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; align-items: end; justify-items: center; background: rgba(255,255,255,0.03); padding: 5px;">
+						<div class="fragment fade-up" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; align-items: end; justify-items: center; background: rgba(255,255,255,0.03); padding: 5px;">
 							
-							<figure style="margin: 0; text-align: center;">
-								<img src="assets/Neutral.png" alt="Neutral" style="max-height: 210px; max-width: 300px;">
-								<figcaption>Neutral</figcaption>
-							</figure>
-							<figure style="margin: 0; text-align: center;">
-								<img src="assets/HOMO_Ionized.png" alt="HOMO Ionized" style="max-height: 210px; max-width: 300px;">
-								<figcaption>HOMO Ionized</figcaption>
-							</figure>
 							<figure style="margin: 0; text-align: center; position: relative;">
-								<img src="assets/HOMO_difference.png" alt="HOMO Difference" style="max-height: 210px; max-width: 300px;">
+								<img src="assets/HOMO_difference.png" alt="HOMO Difference" style="max-height: 400px; max-width: 100%;">
 								<figcaption>HOMO Difference</figcaption>
 							</figure>
 
-							<figure style="margin: 0; text-align: center;">
-								<img src="assets/Neutral.png" alt="Neutral" style="max-height: 210px; max-width: 300px;">
-								<figcaption>Neutral</figcaption>
-							</figure>
-							<figure style="margin: 0; text-align: center;">
-								<img src="assets/1s_ionized.png" alt="1s Ionized" style="max-height: 210px; max-width: 300px;">
-								<figcaption>1s Ionized</figcaption>
-							</figure>
 							<figure style="margin: 0; text-align: center; position: relative;">
-								<img src="assets/1s_difference.png" alt="1s Difference" style="max-height: 210px; max-width: 300px;">
+								<img src="assets/1s_difference.png" alt="1s Difference" style="max-height: 400px; max-width: 100%;">
 								<figcaption>1s Difference</figcaption>
 							</figure>
 						</div>
